@@ -97,37 +97,8 @@ const optionsAndReasons = {
     },
 };
 
-function searchReason() {
-    const searchInput = document.getElementById("searchInput").value;
-    const reasonDisplay = document.getElementById("reasonDisplay");
-    const usageDisplay = document.getElementById("usageDisplay");
-
-    if (searchInput.trim() === "") {
-        reasonDisplay.innerHTML = "Please enter an option.";
-        usageDisplay.innerHTML = "";
-    } else {
-        const matchingOptions = findMatchingOptions(searchInput);
-        if (matchingOptions) {
-            reasonDisplay.innerHTML = "";
-            usageDisplay.innerHTML = "";
-            matchingOptions.forEach(option => {
-                const highlightedOption = `<span style="background-color: yellow;">Option:</span> ${option}`;
-                const highlightedReason = highlightSearchTerm(optionsAndReasons[option].reason, searchInput);
-                const highlightedUsage = highlightSearchTerm(optionsAndReasons[option].usage, searchInput);
-
-                reasonDisplay.innerHTML += `${highlightedOption}<br><span style="background-color: yellow;">Reason:</span> ${highlightedReason}<br><br>`;
-                usageDisplay.innerHTML += `${highlightedOption}<br><span style="background-color: yellow;">Usage:</span> ${highlightedUsage}<br><br>`;
-            });
-        } else {
-            reasonDisplay.innerHTML = `Option not found for "${searchInput}"`;
-            usageDisplay.innerHTML = "";
-        }
-    }
-}
-
-function highlightSearchTerm(text, searchTerm) {
-    return text.replace(new RegExp(searchTerm, 'gi'), match => `<span style="color: red;">${match}</span>`);
-}
+let currentDisplayIndex = 0;
+const rowsToShow = 4;
 
 function findMatchingOptions(searchInput) {
     searchInput = searchInput.toLowerCase();
@@ -136,3 +107,54 @@ function findMatchingOptions(searchInput) {
     );
     return matchingOptions.length > 0 ? matchingOptions : null;
 }
+
+function searchReason() {
+    const searchInput = document.getElementById("searchInput").value;
+    const reasonDisplay = document.getElementById("reasonDisplay");
+    const usageDisplay = document.getElementById("usageDisplay");
+    const nextButton = document.getElementById("nextButton");
+    const refreshText = document.getElementById("refreshText");
+
+    if (searchInput.trim() === "") {
+        reasonDisplay.innerHTML = "Please enter an option.";
+        usageDisplay.innerHTML = "";
+        nextButton.style.display = "none";
+        refreshText.style.display = "none";
+    } else {
+        const matchingOptions = findMatchingOptions(searchInput);
+        if (matchingOptions) {
+            reasonDisplay.innerHTML = "";
+            usageDisplay.innerHTML = "";
+
+            const endIndex = Math.min(currentDisplayIndex + rowsToShow, matchingOptions.length);
+            matchingOptions.slice(currentDisplayIndex, endIndex).forEach(option => {
+                const highlightedOption = `<span style="background-color: yellow;">Option:</span> ${option}`;
+                const highlightedReason = highlightSearchTerm(optionsAndReasons[option].reason, searchInput);
+                const highlightedUsage = highlightSearchTerm(optionsAndReasons[option].usage, searchInput);
+
+                reasonDisplay.innerHTML += `${highlightedOption}<br><span style="background-color: yellow;">Reason:</span> ${highlightedReason}<br><br>`;
+                usageDisplay.innerHTML += `${highlightedOption}<br><span style="background-color: yellow;">Usage:</span> ${highlightedUsage}<br><br>`;
+            });
+
+            nextButton.style.display = endIndex < matchingOptions.length ? "block" : "none";
+            refreshText.style.display = "none";
+        } else {
+            reasonDisplay.innerHTML = `Option not found for "${searchInput}"`;
+            usageDisplay.innerHTML = "";
+            nextButton.style.display = "none";
+            refreshText.style.display = "block";
+        }
+    }
+}
+
+function showNextRows() {
+    currentDisplayIndex += rowsToShow;
+    searchReason();
+}
+
+function highlightSearchTerm(text, searchTerm) {
+    return text.replace(new RegExp(searchTerm, 'gi'), match => `<span style="color: red;">${match}</span>`);
+}
+
+
+

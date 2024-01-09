@@ -9,12 +9,18 @@
 </head>
 
 <body>
-    <div class="container">
-        <label for="searchInput">Type the reason for drop down:</label>
-        <input type="text" id="searchInput">
-        <button onclick="searchReason()">Search</button>
-        <div id="reasonDisplay"></div>
-        <div id="usageDisplay"></div>
+    <div id="app">
+        <div class="container">
+            <label for="searchInput">Type the reason for drop down:</label>
+            <input type="text" id="searchInput">
+            <button onclick="searchReason()">Search</button>
+            <div id="reasonDisplay"></div>
+            <div id="usageDisplay"></div>
+        </div>
+        <div id="refreshText" style="text-align: center; margin-top: 10px; display: none;">
+            Refresh the page to start again
+        </div>
+        <button id="nextButton" onclick="showNextRows()">Next</button>
     </div>
 
     <script src="script.js"></script>

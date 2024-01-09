@@ -5,22 +5,42 @@ body {
     justify-content: center;
     height: 65vh;
     margin: 0;
-    #reasonDisplay,
-    #usageDisplay {
-        text-align: justify;
-        margin-top: 10px; /* Adjust the margin-top value to bring the content down */
-        margin-bottom: 5px;
-        padding: 5px;
-        border: 1px solid #ccc;
-    }
-    
-    #reasonDisplay div,
-    #usageDisplay div {
-        margin-bottom: 0;
-        line-height: 1.2;
-    }
-    
+}
 
+#app {
+    position: relative;
+}
+
+#nextButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: none; /* Initially hide the "Next" button */
+}
+
+#tryAgainButton {
+    display: none; /* Initially hide the "Try Again" button */
+}
+
+#refreshText {
+    text-align: center;
+    margin-top: 10px;
+    display: none; /* Initially hide the refresh text */
+}
+
+#reasonDisplay,
+#usageDisplay {
+    text-align: justify;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    padding: 5px;
+    border: 1px solid #ccc;
+}
+
+#reasonDisplay div,
+#usageDisplay div {
+    margin-bottom: 0;
+    line-height: 1.2;
 }
 
 .container {
@@ -37,4 +57,3 @@ button {
     padding: 5px 10px;
     cursor: pointer;
 }
-
