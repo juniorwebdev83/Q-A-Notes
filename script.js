@@ -97,7 +97,7 @@ const optionsAndReasons = {
     },
     "Name Change": {
         reason: "guest needs to change the primary guest’s name on the reservation and the hotel is unable to modify. Guest may need to cancel and rebook if rate provider is unable to assist.",
-        usage: "Guest may need to cancel and rebook if rate provider unable to assist. "
+        attention: "Guest may need to cancel and rebook if rate provider unable to assist. "
     },
     "Declined Voucher / Requested Refund": {
         reason: "guest received a voucher macro or a voucher has already been issued and guest declined the voucher, opting for a credit card refund.",
